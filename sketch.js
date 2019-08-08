@@ -3,11 +3,13 @@ var w = 20;
 var grid = [];
 var current;
 var stack = [];
+var player;
 
 function setup() {
   createCanvas(401, 401);
   cols = floor(width / w);
   rows = floor(height / w);
+  player = new Player();
 
   for (var j = 0; j < rows; j++) {
     for (var i = 0; i < cols; i++) {
@@ -21,6 +23,8 @@ function setup() {
 
 function draw() {
   background(205);
+  player.update();
+  player.show();
   for (var i = 0; i < grid.length; i++) {
     grid[i].show();
   }
@@ -40,6 +44,30 @@ function draw() {
     current = next;
   } else if (stack.length > 0) {
     current = stack.pop();
+  }
+}
+
+function keyPressed() {
+  if (keyCode === 87) {
+    player.yspeed--;
+  } else if (keyCode === 83) {
+    player.yspeed++;
+  } else if (keyCode === 68) {
+    player.xspeed++;
+  } else if (keyCode === 65) {
+    player.xspeed--;
+  }
+}
+
+function keyReleased() {
+  if (keyCode === 87) {
+    player.yspeed++;
+  } else if (keyCode === 83) {
+    player.yspeed--;
+  } else if (keyCode === 68) {
+    player.xspeed--;
+  } else if (keyCode === 65) {
+    player.xspeed++;
   }
 }
 
